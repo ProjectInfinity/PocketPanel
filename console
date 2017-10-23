@@ -1,0 +1,31 @@
+#!/usr/bin/env node
+'use strict';
+
+global.path = __dirname;
+global.pp_version = require('./package.json').version;
+
+const cli = require('commander');
+const chalk = require('chalk');
+const fs = require('fs-extra');
+const Promise = require('Bluebird');
+
+// Required for validation of the API request.
+global.api_token = fs.readFileSync(`${global.path}/.pocketpanel/api_token`).toString();
+global.api_port = Number(fs.readFileSync(`${global.path}/.pocketpanel/api_port`).toString());
+
+if(!Number.isInteger(global.api_port)) {
+    console.log('\nCould not reach the API. Is PocketPanel running?');
+    process.exit(1);
+}
+
+const configManager = new (require('./app/config/ConfigManager'))(true);
+
+configManager.wait().then(() => {
+    cli.version(pp_version);
+    
+    require('./app/console/command/LinkCommand');
+    //require('./console/command/');
+    
+    if(process.argv.length < 3) return cli.outputHelp();
+    cli.parse(process.argv);
+});

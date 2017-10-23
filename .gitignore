@@ -1,0 +1,12 @@
+.debug
+.env
+.develop
+\.pocketpanel/
+\.vscode/
+pocketpanel.json
+node_modules
+\server
+
+# Windows temporary files.
+\setup/windows/php-debug.zip
+\setup/windows/php.zip

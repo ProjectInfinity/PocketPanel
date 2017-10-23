@@ -1,0 +1,9 @@
+{
+    "verbose": true,
+    "ignore": [
+        ".pocketpanel/*",
+        "pocketpanel.json",
+        "node-modules/*",
+        "server/*"
+    ]
+}
