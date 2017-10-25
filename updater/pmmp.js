@@ -1,7 +1,7 @@
 'use strict';
 const fs = require('fs-extra');
 const Promise = require('bluebird');
-const request = require('request-promise'); // FIXME: Replace with Axios.
+const axios = require('axios');
 
 class PmmpUpdater {
     
@@ -48,24 +48,21 @@ class PmmpUpdater {
 
     checkForUpdate() {
         return new Promise((resolve, reject) => {
-            request(this.lastSuccessfulBuildInfo, (err, response, body) => {
-                if(err) throw err;
-                if(response && response.statusCode !== 200) {
-                    global.log.warn('Failed to check for PocketMine updates. Response status code was not 200.');
-                    return reject('Failed to check for PocketMine updates. Response status code was not 200.');
-                }
-            }).then((data) => {
-                let content = JSON.parse(data);
-                if(content.build_number > this.current.build_number) {
-                    global.log.info(`A new PocketMine version is available. PocketMine-MP ${content.pm_version} ${content.api_version} (#${content.build_number}).`);
+            axios.get(this.lastSuccessfulBuildInfo)
+            .then(response => {
+                if(response.data.build_number > this.current.build_number) {
+                    global.log.info(`A new PocketMine version is available. PocketMine-MP ${response.data.pm_version} ${response.data.api_version} (#${response.data.build_number}).`);
                     global.pmmpUpdate = {
-                        version: content.pm_version, 
-                        api: content.api_version, 
-                        build: content.build_number,
-                        url: `https://jenkins.pmmp.io/job/PocketMine-MP/lastSuccessfulBuild/artifact/${content.job}_${content.pm_version}-${content.build_number}_${content.git_commit.substring(0, 8)}_API-${content.api_version}.phar`,
+                        version: response.data.pm_version, 
+                        api: response.data.api_version, 
+                        build: response.data.build_number,
+                        url: `https://jenkins.pmmp.io/job/PocketMine-MP/lastSuccessfulBuild/artifact/${response.data.job}_${response.data.pm_version}-${response.data.build_number}_${response.data.git_commit.substring(0, 8)}_API-${response.data.api_version}.phar`,
                     };
                 }
                 return resolve();
+            })
+            .catch(err => {
+                return reject(err);
             });
         });
     }
