@@ -2,6 +2,7 @@
 
 const {spawn} = require('child_process');
 const platform = require('./platform/' + global.os);
+const isRunning = require('is-running');
 
 class Server {
 
@@ -30,11 +31,22 @@ class Server {
             global.log.info(data.toString());
         });
         this.pmmp.stdout.on('end', data => {
-            global.log.info(data);
+            global.log.info('PocketMine server was stopped.');
         });
         this.pmmp.on('exit', code => {
             global.log.info('Exit code: ' + code);
         });
+    }
+
+    stop() {
+        this.pmmp.stdin.write('stop\n', 'utf-8');
+        // Kill the server if it takes too long to stop.
+        setTimeout((params) => {
+            if(this.isRunning(this.pmmp.pid)) {
+                this.pmmp.kill('SIGKILL');
+                global.log.warn('Killed PocketMine server because it took too long to shut down.');
+            }
+        }, 70000);
     }
 
 }
