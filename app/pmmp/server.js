@@ -3,6 +3,7 @@
 const {spawn} = require('child_process');
 const platform = require('./platform/' + global.os);
 const isRunning = require('is-running');
+const Promise = require('Bluebird');
 
 class Server {
 
@@ -36,17 +37,37 @@ class Server {
         this.pmmp.on('exit', code => {
             global.log.info('Exit code: ' + code);
         });
+
+        return new Promise((resolve, reject) => {
+            let waited = 0;
+            let timer = setInterval(() => {
+                if(waited >= 10000) {
+                    clearInterval(timer);
+                    return reject('Timeout while waiting for server to start.');
+                }
+                if(isRunning(this.pmmp.pid)) {
+                    clearInterval(timer);
+                    return resolve();
+                }
+                waited += 500;
+            }, 500);
+        });
     }
 
     stop() {
-        this.pmmp.stdin.write('stop\n', 'utf-8');
-        // Kill the server if it takes too long to stop.
-        setTimeout((params) => {
-            if(this.isRunning(this.pmmp.pid)) {
-                this.pmmp.kill('SIGKILL');
-                global.log.warn('Killed PocketMine server because it took too long to shut down.');
-            }
-        }, 70000);
+        return new Promise((resolve, reject) => {
+            if(!this.isRunning) return resolve();
+
+            this.pmmp.stdin.write('stop\n', 'utf-8');
+            // Kill the server if it takes too long to stop.
+            setTimeout((params) => {
+                if(this.isRunning(this.pmmp.pid)) {
+                    this.pmmp.kill('SIGKILL');
+                    global.log.warn('Killed PocketMine server because it took too long to shut down.');
+                }
+                return resolve();
+            }, 10000);
+        });
     }
 
 }
