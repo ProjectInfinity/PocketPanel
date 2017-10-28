@@ -23,8 +23,12 @@ const configManager = new (require('./app/config/ConfigManager'))(true);
 configManager.wait().then(() => {
     cli.version(pp_version);
     
-    require('./app/console/command/LinkCommand');
-    //require('./console/command/');
+    let files = fs.readdirSync(`${global.path}/app/console/command`);
+
+    for(let file of files) {
+        if(file === 'ConsoleCommand.js') continue;
+        require(`./app/console/command/${file}`);
+    }
     
     if(process.argv.length < 3) return cli.outputHelp();
     cli.parse(process.argv);
