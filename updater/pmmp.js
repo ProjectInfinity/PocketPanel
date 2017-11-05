@@ -51,7 +51,7 @@ class PmmpUpdater {
             axios.get(this.lastSuccessfulBuildInfo)
             .then(response => {
                 if(response.data.build_number > this.current.build_number) {
-                    global.log.info(`A new PocketMine version is available. PocketMine-MP ${response.data.pm_version} ${response.data.api_version} (#${response.data.build_number}).`);
+                    global.log.pocketpanel.info(`A new PocketMine version is available. PocketMine-MP ${response.data.pm_version} ${response.data.api_version} (#${response.data.build_number}).`);
                     global.pmmpUpdate = {
                         version: response.data.pm_version, 
                         api: response.data.api_version, 
@@ -69,4 +69,4 @@ class PmmpUpdater {
     
 }
 
-module.exports = new PmmpUpdater;
+module.exports = PmmpUpdater;

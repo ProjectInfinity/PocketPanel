@@ -16,7 +16,7 @@ class Server {
         getPort({port: global.config.api_port, host: '127.0.0.1'}).then(port => {
             if(port !== global.config.api_port) global.log.info(`The internal API attempted to use port ${global.config.api_port} which is occupied, using port ${port} instead.`);
             this.server.listen(port, 'localhost', () => {
-                global.log.info(`Internal API listening at ${this.server.url}`);
+                global.log.pocketpanel.info(`Internal API listening at ${this.server.url}`);
             });
             fs.writeFile(`${global.path}/.pocketpanel/api_port`, port);
         });

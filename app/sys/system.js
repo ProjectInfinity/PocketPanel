@@ -1,11 +1,11 @@
 'use strict';
 
-const Promise = require('bluebird');
 
 class System {
-    constructor() {
+    constructor(PocketPanel) {
+        PocketPanel.get_pocketmine().folderExists().then(res => {console.log(res)});
         // Start the PocketMine server.
-        this._pmmp = require('./../pmmp/server');
+        //this._pmmp = require('./../pmmp/server');
         // Start the internal API.
         this._api = require('./api/server');
     }
@@ -19,4 +19,4 @@ class System {
     }
 }
 
-module.exports = new System;
+module.exports = System;

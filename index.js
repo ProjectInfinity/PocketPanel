@@ -1,13 +1,14 @@
 'use strict';
 
 const util = require('util')
-const spawn = require('child_process')
 const fs = require('fs-extra');
 const os = require('os');
 const crypto = require('crypto');
 
 global.path = __dirname;
-global.log = require('logging').default('PocketPanel');
+global.log = {pocketpanel: require('logging').default('PocketPanel')};
+
+global.log.pocketpanel.info('PocketPanel is starting up...');
 
 // Ensure that the environment file exists before attempting to load it.
 if(!fs.existsSync(`${global.path}/.env`)) fs.copySync(`${global.path}/env_template`, `${global.path}/.env`);
@@ -20,7 +21,7 @@ if(!fs.existsSync(`${global.path}/.develop`)) {
     let newEnv = fs.readFileSync(`${global.path}/env_template`);
 
     if(crypto.createHash('md5').update(oldEnv, 'utf8').digest('hex') !== crypto.createHash('md5').update(newEnv, 'utf8').digest('hex')) {
-        global.log.info('Updating environment file.');
+        global.log.pocketpanel.info('Updating environment file.');
         fs.copySync(`${global.path}/env_template`, `${global.path}/.env`);
     }
 } else {
@@ -53,7 +54,7 @@ switch(process.platform.toString().toUpperCase()) {
 }
 
 if(global.os !== undefined) {
-    global.log.info(`OS detected: ${global.os}`);
+    global.log.pocketpanel.info(`OS detected: ${global.os}`);
 }
 
 // Create internal data folder if it does not exist.
@@ -63,12 +64,5 @@ const configManager = new (require('./app/config/ConfigManager'));
 
 configManager.wait().then(config => {
     global.config = config;
-    if(fs.existsSync(`${global.path}/server`)) {
-        // Start PocketPanel.
-        let pmmp_updater = require('./updater/pmmp'); // Possible TODO: Make pmmp updater run before system boots.
-        let system = require('./app/sys/system');
-    } else {
-        // Config does not exist, start setup.
-        new (require('./setup/inquire'))();
-    }
+    new (require('./pocketpanel'))();
 });
