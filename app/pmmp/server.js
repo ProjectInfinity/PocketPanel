@@ -90,7 +90,6 @@ class Server {
                     this.pmmp.kill('SIGKILL');
                     global.log.pmmp.warn('Killed PocketMine server because it took too long to shut down.');
                 }
-                console.log('WOAAAAH');
                 return resolve();
             }, 10000);
         });
