@@ -8,7 +8,7 @@ class ConsoleCommand {
 
     constructor() {
         this.cli = require('commander');
-        this.payload = new Map(); // We should always return a payload map to the caller.
+        this.payload = {}; // We should always return a payload object to the caller.
     }
 
     send(channel, data = null, listenOn = null) {
@@ -31,7 +31,11 @@ class ConsoleCommand {
                     return;
                 }
                 if(response.instantMessage) console.log(response.message);
-                if(response.payload != null) this.payload.set(response.payload.name, response.payload.data);
+                if(response.payload != null) {
+                    for(let [key, value] of Object.entries(response.payload)) {
+                        this.payload[key] = value;
+                    }
+                }
             });
 
             client.on('/hangup', message => {
