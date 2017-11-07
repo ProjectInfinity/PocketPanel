@@ -34,7 +34,7 @@ class Link {
         return new Promise((resolve, reject) => {
             axios({
                 method: 'POST',
-                url: `${process.env.POCKETPANEL_BACKEND}/link`,
+                url: `${global.config.system.POCKETPANEL_BACKEND}/link`,
                 data: {
                     email: payload.email,
                     key: payload.key

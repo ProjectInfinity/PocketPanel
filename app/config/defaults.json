@@ -1,3 +1,5 @@
 {
-    "api_port": 9663
+    "system": {
+        "POCKETPANEL_BACKEND": "http://127.0.0.1:3333"
+    }
 }

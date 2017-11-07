@@ -42,7 +42,7 @@ class ConfigManager {
                 return Promise.resolve(config);
             }).then(config => {
                 // TODO: Save to pocketpanel.json
-                fs.writeFile(`${global.path}/pocketpanel.json`, JSON.stringify(config),{encoding: 'utf8'})
+                fs.writeFile(`${global.path}/pocketpanel.json`, JSON.stringify(config, 0, 4),{encoding: 'utf8'})
                 .then(() => resolve(config));
             });
         });
