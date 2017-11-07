@@ -8,7 +8,7 @@
     "start": "node index.js"
   },
   "author": "Aleksander Sjursen",
-  "license": "ISC",
+  "license": "BSD",
   "dependencies": {
     "@types/fs-extra": "^4.0.2",
     "async": "^2.5.0",
@@ -19,7 +19,6 @@
     "crocket": "^0.9.11",
     "decompress": "^4.2.0",
     "fs-extra": "^4.0.2",
-    "get-port": "^3.2.0",
     "inquirer": "^3.3.0",
     "is-running": "^2.1.0",
     "js-yaml": "^3.10.0",
