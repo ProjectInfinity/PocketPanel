@@ -14,6 +14,7 @@ class Restart {
     }
 
     restartServer() {
+        // TODO: Clean up this process, it should emit a message on every instance like start, stop etc.
         this.socket.on('/server/restart', payload => {
             this.pocketmine.restart().then(srvResponse => {
                 let response = new Response();
@@ -23,7 +24,7 @@ class Restart {
                 this.socket.emit('/hangup');
             }).catch(err => {
                 let response = new Response();
-                this.socket.emit('/server/restart', err.message);
+                this.socket.emit('/error', err.message);
                 this.socket.emit('/hangup');
                 console.error(err);
             });

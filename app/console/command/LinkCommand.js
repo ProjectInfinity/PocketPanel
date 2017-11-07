@@ -21,17 +21,12 @@ class LinkCommand extends ConsoleCommand {
             );
         })
         .action((email, key) => {
-            this.call({
-                url: `http://127.0.0.1:${global.api_port}/link`,
-                body: {
-                    email: email,
-                    key: key
-                }
-            }).then(response => {
-                if(response.success) {
+            this.send('/link', {email: email, key: key}).then(response => {
+                let result = response.result;
+                if(result.success) {
                     // TODO: Do something with the data received.
-                } else if(!response.success) {
-                    console.log(`\n${response.message}\nCause: ${response.code}`);
+                } else if(!result.success) {
+                    console.log(`\n${result.message}\nCause: ${result.code}`);
                     process.exit(1);
                 }
             }).catch(err => {

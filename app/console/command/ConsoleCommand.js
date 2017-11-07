@@ -19,6 +19,10 @@ class ConsoleCommand {
             client.emit(channel, typeof data == 'object' ? JSON.stringify(data) : data);
         });
         return new Promise((resolve, reject) => {
+            client.on('/error', (err) => {
+                return reject(err);
+            });
+            
             client.on(listenOn || channel, raw => {
                 let response = null;
                 try {
