@@ -8,7 +8,6 @@ class PocketPanel {
 
     constructor() {
         this._pocketmine = new (require('./app/pmmp/server'))(this);
-        // TODO: Use crocket instead of restify for communication.
         async.waterfall([
             (callback) => {
                 this._pocketmine.folderExists().then(exists => callback(null, exists));
@@ -17,7 +16,13 @@ class PocketPanel {
                 // Server folder exists, prepare to start.
                 if(exists) return callback(null);
                 // Server folder does not exist, start setup.
-                // TODO:
+                new (require('./setup/inquire'))((err, result) => {
+                    if(err) throw err;
+                    console.log(result);
+                    // TODO: Polish the setup end.
+
+                    return callback(null);
+                });
             }
         ], (err) => {
             if(err) throw err;
@@ -27,15 +32,6 @@ class PocketPanel {
             this.pmmp_updater = new (require('./updater/pmmp'))(this);
             this.console_comms = new (require('./app/console/comms'))(this);
         });
-
-        /*if(fs.existsSync(`${global.path}/server`)) {
-            // Start PocketPanel.
-            let pmmp_updater = require('./updater/pmmp'); // Possible TODO: Make pmmp updater run before system boots.
-            let system = require('./app/sys/system');
-        } else {
-            // Config does not exist, start setup.
-            new (require('./setup/inquire'))();
-        }*/
     }
 
     get pocketmine() {
