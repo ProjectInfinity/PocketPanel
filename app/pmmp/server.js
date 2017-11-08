@@ -3,7 +3,7 @@
 const {spawn} = require('child_process');
 const platform = require('./platform/' + global.os);
 const isRunning = require('is-running');
-const Promise = require('Bluebird');
+const Promise = require('bluebird');
 const fs = require('fs-extra');
 
 class Server {
