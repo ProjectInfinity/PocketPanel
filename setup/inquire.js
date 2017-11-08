@@ -6,8 +6,8 @@ const chalk = require('chalk');
 
 class Inquire {
 
-    constructor() {
-        global.log.info('\nWelcome to the PocketPanel setup.\n');
+    constructor(rootCaller) {
+        global.log.pocketpanel.info('\nWelcome to the PocketPanel setup.\n');
 
         let answers = {};
         
@@ -32,7 +32,7 @@ class Inquire {
             // 
             (callback) => {
                 if(!answers.newServer) {
-                    global.log.info(chalk.yellow('To use your existing server move the files into the folder called "server" and run PocketPanel again.'));
+                    global.log.pocketpanel.info(chalk.yellow('To use your existing server move the files into the folder called "server" and run PocketPanel again.'));
                     return callback(null);
                 }
                 inquirer.prompt([
@@ -90,7 +90,7 @@ class Inquire {
             }
         ], (err) => {
             if(err) throw err;
-            new (require(`./${global.os}/setup`))(answers);
+            new (require(`./${global.os}/setup`))(answers, rootCaller);
         });
         
     }

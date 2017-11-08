@@ -1,16 +1,17 @@
 'use strict';
 
-const { spawn } = require('child_process');
 const fs = require('fs-extra');
-const request = require('request');
+const request = require('request'); // TODO: This needs to be rewritten to use axios instead of request, that way we can finally be rid of the request dependency.
 const decompress = require('decompress');
+const Promise = require('bluebird');
 
 const PHP_BINARIES = 'https://ci.appveyor.com/api/buildjobs/xuudmh6tm7ib8cav/artifacts/php-7.2.0RC4-vc15-x64.zip';
 const PHP_DEBUG = 'https://ci.appveyor.com/api/buildjobs/xuudmh6tm7ib8cav/artifacts/php-debug-pack-7.2.0RC4-Win32-VC15-x64.zip';
 
 class Setup {
 
-    constructor(answers) {
+    // TODO: Implement rootCaller support.
+    constructor(answers, rootCaller) {
         if(!fs.existsSync(`${global.path}/server`)) {
             global.log.info('Server directory missing, creating it.');
             fs.mkdirSync(`${global.path}/server`);
@@ -21,7 +22,7 @@ class Setup {
                 // TODO: This needs to use a PocketMine updater in the future.
                 .then(() => this.downloadFile('https://jenkins.pmmp.io/job/PocketMine-MP/317/artifact/PocketMine-MP_1.7dev-317_0df3b00d_API-3.0.0-ALPHA9.phar', global.path + '/server/PocketMine-MP.phar'))
                 .then(() => this.copyTemplates())
-            .catch((err) => {
+            .catch(err => {
                 throw err;
             });
         } else {
