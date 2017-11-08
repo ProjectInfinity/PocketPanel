@@ -61,4 +61,4 @@ PocketPanel runs in the foreground so make sure you do not close the window as t
 
 Since PocketPanel is incredibly early in development it is **not** ready to be seriously used by anyone yet. If you really wish to try it out however, it is recommended to take a backup of your server and copy all the files into a folder called `server` inside the main PocketPanel folder.
 
-Another thing you need to make sure is that the PocketMine PHAR file is located inside the `server` folder and is called `PocketMine.phar`.
+Another thing you need to make sure is that the PocketMine PHAR file is located inside the `server` folder and is called `PocketMine-MP.phar`.
