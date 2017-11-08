@@ -10,3 +10,4 @@ node_modules
 # Windows temporary files.
 \setup/windows/php-debug.zip
 \setup/windows/php.zip
+server_windows/
