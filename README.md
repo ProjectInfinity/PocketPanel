@@ -57,6 +57,8 @@ This may take a minute or two, please do not interrupt the proccess.
 Once completed you may type `npm start` to run PocketPanel.
 PocketPanel runs in the foreground so make sure you do not close the terminal as that will also close your server. This may change in the future. It is recommended to use something like `tmux` or `screen` with PocketPanel at this time.
 
+- - -
+
 ### CentOS / RHEL
 
 ### Install dependencies
