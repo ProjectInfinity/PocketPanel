@@ -9,11 +9,11 @@ module.exports = {
             fs.exists(`${global.path}/server/bin/php/php.exe`)
             .then(exists => {
                 if(!exists) {
-                    global.log.warn('Could not find php.exe in server/bin/php. Attempting to fall back on global PHP install.');
+                    global.log.pocketpanel.warn('Could not find php.exe in server/bin/php. Attempting to fall back on global PHP install.');
                     return resolve('php');
                 }
                 return resolve(`${global.path}/server/bin/php/php.exe`);
-            })
+            });
         });
     },
     locatePocketMine() {
