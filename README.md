@@ -54,7 +54,13 @@ This may take a minute or two, please do not interrupt the proccess.
 
 **Important: Right now the new server setup is incomplete, so you need to copy a working server to a folder called `server` inside the main PocketPanel folder!**
 
-Once completed you may type `npm start` to run PocketPanel.
+Once completed you may type 
+
+```bash
+npm start
+```
+
+ to run PocketPanel.
 PocketPanel runs in the foreground so make sure you do not close the terminal as that will also close your server. This may change in the future. It is recommended to use something like `tmux` or `screen` with PocketPanel at this time.
 
 - - -
@@ -138,7 +144,13 @@ to install the PocketPanel dependencies. This may take a minute or two, so don't
 
 **Important: Right now the new server setup is incomplete, so you need to copy a working server to a folder called `server` inside the main PocketPanel folder!**
 
-Once completed you may type `npm start` to run PocketPanel.
+Once completed you may type
+
+```bash
+npm start
+```
+
+to run PocketPanel.
 PocketPanel runs in the foreground so make sure you do not close the window as that will also close your server. This may change in the future.
 
 - - -
