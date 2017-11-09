@@ -11,17 +11,23 @@ The wrapper is completely free to use and open source, the Web Interface has a f
 ## Installation
 
 ### Ubuntu / Debian
--- Coming soon --
+
+#### Install dependencies
 
 ### CentOS / RHEL
 -- Coming soon --
 
+- - -
+
 ### macOS
 -- Coming soon --
+
+- - -
 
 ### Windows
 
 #### Install dependencies
+
 Ensure NodeJS is installed and is at least version 8.0 or above.
 
 To check your installed NodeJS version, press Windows + R and type `cmd` in the text field.
@@ -57,8 +63,18 @@ In your CMD window, ensure you are in the directory of PocketPanel and type `npm
 Once completed you may type `npm start` to run PocketPanel.
 PocketPanel runs in the foreground so make sure you do not close the window as that will also close your server. This may change in the future.
 
+- - -
+
+### BSD
+
+Follow the Linux instructions for guidance. If you're using BSD I hope you're familiar enough with the operating system to run a NodeJS program.
+
+- - -
+
 ## Caveats
 
 Since PocketPanel is incredibly early in development it is **not** ready to be seriously used by anyone yet. If you really wish to try it out however, it is recommended to take a backup of your server and copy all the files into a folder called `server` inside the main PocketPanel folder.
+
+Like mentioned above, **you are required** to copy all your currently working server files into a folder called `server` in the main PocketPanel folder.
 
 Another thing you need to make sure is that the PocketMine PHAR file is located inside the `server` folder and is called `PocketMine-MP.phar`.
