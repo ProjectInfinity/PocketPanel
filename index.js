@@ -18,7 +18,7 @@ switch(process.platform.toString().toUpperCase()) {
 
     case 'OPENBSD':
     case 'FREEBSD':
-        global.os = 'bsd';
+        global.os = 'linux'; // I KNOW. Don't judge. If it ever proves to be a problem I'll look into a BSD option.
     break;
 
     case 'LINUX':
