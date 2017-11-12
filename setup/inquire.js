@@ -3,6 +3,7 @@
 const inquirer = require('inquirer');
 const async = require('async');
 const chalk = require('chalk');
+const Promise = require('bluebird');
 
 class Inquire {
 
@@ -36,9 +37,10 @@ class Inquire {
                     return callback(null);
                 }
                 inquirer.prompt([
+                    // LANGUAGE
                     {
                         type: 'list',
-                        name: 'language',
+                        name: 'lang',
                         message: 'Select your language for PocketMine',
                         default: 'eng',
                         choices: [
@@ -76,17 +78,40 @@ class Inquire {
                             {name: 'Tiếng Việt', value: 'vie'},
                             {name: '中文(繁體)', value: 'zho'},
                         ]
+                    },
+                    // MOTD
+                    {
+                        type: 'input',
+                        name: 'motd',
+                        message: 'Enter your message of the day (motd)',
+                        default: 'PocketMine-MP Server',
+                    },
+                    // PORT
+                    {
+                        type: 'input',
+                        name: 'port',
+                        message: 'Enter the port you want your server to run on',
+                        default: 19132,
+                        validate: function(input) {
+                            return new Promise((resolve, reject) => {
+                                if(/^\+?(0|[1-9]\d*)$/.test(input) && Number(input) > 0) return resolve(true);
+                                return reject('Your server port has to be a number');
+                            });
+                        }
+                    },
+                    // WHITELIST
+                    {
+                        type: 'confirm',
+                        name: 'whitelist',
+                        message: 'Should your server be whitelisted?',
+                        default: false
                     }
                 ])
-                .then((option) => {
-                    answers.language = option.language;
-                    return callback(null);
+                .then((options) => {
+                    answers.lang = options.language;
+                    console.log(options);
+                    return callback(new Error('Not fully implemented error.')); // TODO: Remove this once all questions are completed.
                 });
-                /*inquirer.prompt([
-                    {
-                        type: 'input'
-                    }
-                ]); */
             }
         ], (err) => {
             if(err) throw err;
