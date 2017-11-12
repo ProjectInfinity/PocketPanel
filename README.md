@@ -134,7 +134,7 @@ Once downloaded, extract it where you want PocketPanel to be located and proceed
 
 #### Running PocketPanel
 
-In your CMD window, ensure you are in the directory of PocketPanel and type 
+In your CMD window, ensure you are in the directory of PocketPanel and type
 
 ```bash
 npm install
