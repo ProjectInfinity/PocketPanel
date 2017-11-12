@@ -7,12 +7,7 @@ global.pp_version = require('./package.json').version;
 const cli = require('commander');
 const chalk = require('chalk');
 const fs = require('fs-extra');
-const Promise = require('Bluebird');
-
-if(!Number.isInteger(global.api_port)) {
-    console.log('\nCould not reach the API. Is PocketPanel running?');
-    process.exit(1);
-}
+const Promise = require('bluebird');
 
 const configManager = new (require('./app/config/ConfigManager'))(true);
 
