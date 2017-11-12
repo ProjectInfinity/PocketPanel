@@ -105,6 +105,39 @@ class Inquire {
                         name: 'whitelist',
                         message: 'Should your server be whitelisted?',
                         default: false
+                    },
+                    // MAX PLAYERS
+                    {
+                        type: 'input',
+                        name: 'max_players',
+                        message: 'Set the max number of players on your server',
+                        default: 20,
+                        validate: function(input) {
+                            return new Promise((resolve, reject) => {
+                                if(/^\+?(0|[1-9]\d*)$/.test(input) && Number(input) > 0) return resolve(true);
+                                return reject('Player slots have to be a number');
+                            });
+                        }
+                    },
+                    // ALLOW FLYING
+                    {
+                        type: 'confirm',
+                        name: 'allow_flying',
+                        message: 'Allow flying? Not recommended',
+                        default: false
+                    },
+                    // GAMEMODE
+                    {
+                        type: 'list',
+                        name: 'gamemode',
+                        message: 'Select game mode',
+                        default: 0,
+                        choices: [
+                            {name: 'Survival', value: 0},
+                            {name: 'Creative', value: 1},
+                            {name: 'Adventure', value: 2},
+                            {name: 'Spectator', value: 3}
+                        ]
                     }
                 ])
                 .then((options) => {
