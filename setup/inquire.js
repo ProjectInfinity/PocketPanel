@@ -138,7 +138,45 @@ class Inquire {
                             {name: 'Adventure', value: 2},
                             {name: 'Spectator', value: 3}
                         ]
-                    }
+                    },
+                    // PVP
+                    {
+                        type: 'confirm',
+                        name: 'pvp',
+                        message: 'Enable Player Versus Player (PvP) combat?',
+                        default: false
+                    },
+                    // DIFFICULTY
+                    {
+                        type: 'list',
+                        name: 'difficulty',
+                        message: 'Choose a difficulty',
+                        default: 1,
+                        choices: [
+                            {name: 'Peaceful', value: 0},
+                            {name: 'Easy', value: 1},
+                            {name: 'Normal', value: 2},
+                            {name: 'Hard', value: 3}
+                        ]
+                    },
+                    // LEVEL-NAME
+                    {
+                        type: 'input',
+                        name: 'level_name',
+                        message: 'Name your world',
+                        default: 'world'
+                    },
+                    // LEVEL-TYPE
+                    {
+                        type: 'list',
+                        name: 'level_type',
+                        message: 'Choose the type of your world',
+                        default: 'DEFAULT',
+                        choices: [
+                            {name: 'Default', value: 'DEFAULT'},
+                            {name: 'Flat', value: 'FLAT'}
+                        ]
+                    } 
                 ])
                 .then((options) => {
                     answers.lang = options.language;
