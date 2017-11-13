@@ -7,20 +7,13 @@ const axios = require('axios');
 
 class Setup {
 
-    constructor(answers, rootCaller) {
-        if(!fs.existsSync(`${global.path}/server`)) {
-            global.log.pocketpanel.info('Server directory missing, creating it.');
-            fs.mkdirSync(`${global.path}/server`);
-        }
-
-        if(answers.newServer) {
-            this.downloadScript()
-            .then(() => this.runOfficialScript())
-            .then(() => rootCaller(null, 'SETUP COMPLETE. Please restart PocketPanel.'))
-            .catch(err => {
-                throw err;
-            });
-        }
+    constructor(rootCaller) {
+        this.downloadScript()
+        .then(() => this.runOfficialScript())
+        .then(() => rootCaller(null, 'SETUP COMPLETE. Please restart PocketPanel.'))
+        .catch(err => {
+            throw err;
+        });    
     }
 
     downloadScript() {

@@ -11,24 +11,14 @@ const PHP_DEBUG = 'https://ci.appveyor.com/api/buildjobs/xuudmh6tm7ib8cav/artifa
 class Setup {
 
     // TODO: Implement rootCaller support.
-    constructor(answers, rootCaller) {
-        if(!fs.existsSync(`${global.path}/server`)) {
-            global.log.info('Server directory missing, creating it.');
-            fs.mkdirSync(`${global.path}/server`);
-        }
-
-        if(answers.newServer) {
-            this.getBinaries()
-                // TODO: This needs to use a PocketMine updater in the future.
-                .then(() => this.downloadFile('https://jenkins.pmmp.io/job/PocketMine-MP/317/artifact/PocketMine-MP_1.7dev-317_0df3b00d_API-3.0.0-ALPHA9.phar', global.path + '/server/PocketMine-MP.phar'))
-                .then(() => this.copyTemplates())
-            .catch(err => {
-                throw err;
-            });
-        } else {
-
-        }
-        //global.logger.info(answers);
+    constructor(rootCaller) {
+        this.getBinaries()
+        // TODO: This needs to use a PocketMine updater in the future.
+        .then(() => this.downloadFile('https://jenkins.pmmp.io/job/PocketMine-MP/317/artifact/PocketMine-MP_1.7dev-317_0df3b00d_API-3.0.0-ALPHA9.phar', global.path + '/server/PocketMine-MP.phar'))
+        .then(() => this.copyTemplates())
+        .catch(err => {
+            throw err;
+        });
     }
 
     downloadFile(url, destination) {
