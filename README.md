@@ -1,5 +1,7 @@
 # PocketPanel [WIP]
 
+[![Join the chat at https://gitter.im/ProjectInfinity/PocketPanel](https://badges.gitter.im/ProjectInfinity/PocketPanel.svg)](https://gitter.im/ProjectInfinity/PocketPanel?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Links will come here shortly. In the meantime enjoy some placeholder text because neither the forums nor the panel GUI is up yet.
 
 ## What is PocketPanel?
